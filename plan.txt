@@ -1,0 +1,16 @@
+Notes:
+-timer hidden, but still time bonus.
+
+
+TO DO:
+-show star achievments on score screen.
+-tutorial could be improved. Add sage where it teaches click vs swipe, and how to undo.
+-throw out puzzles with solution lengths not what you want (important for difficulty).
+
+
+
+
+Eventually:
+-group levels into three difficulties (easy, medium, hard).
+-reuse levels by adding mechanics (time limit, wilds, long chain, short chain, large number range, small number range, etc.).
+-with just 5 levels of each difficulty, that becomes 90 levels!
