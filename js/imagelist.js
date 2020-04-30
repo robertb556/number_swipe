@@ -29,6 +29,7 @@ addImageFile("continuedown",	"continuedown.png");
 addImageFile("changelevel",		"changelevel.png");
 addImageFile("score",		"score.png");
 addImageFile("viewpath",		"viewpath.png");
+addImageFile("nextlevel",		"nextlevel.png");
 
 addImageFile("bar",		"bar.png");
 addImageFile("barcap",		"barcap.png");
