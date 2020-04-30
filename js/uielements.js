@@ -76,9 +76,9 @@ var ScoreScreen = function(){
 	me.frameCount = 0;
 
 
+	me.addChild(NextLevelButton());
 	me.addChild(ContinueButton());
 	me.addChild(ChangeLevelButton());
-	me.addChild(ViewPathButton());
 
 	me.onFocus = function(){
 		me.frameCount = 0;
@@ -329,13 +329,41 @@ var SubmitButton = function(){
 };
 
 
+var NextLevelButton = function(){
+	var me = UiObject();
+
+	me.w = BUTTON_W;
+	me.h = BUTTON_H;
+	me.x = BUTTON_X;
+	me.y = BUTTON_Y1;
+	
+
+	me.onDraw = function(ctx){
+		if(me.isEnabled()){
+			ctx.drawImage(IMG['nextlevel'], me.x, me.y);
+			if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		}
+	};
+
+	me.onMouseUp = function(){
+		if(me.isEnabled()) nextRound(currentLevel.nextLevel);
+	};
+
+	me.isEnabled = function(){
+		if(currentLevel.nextLevel && !currentLevel.nextLevel.isLocked()) return true;
+		else return false;
+	};
+
+	return me;
+};
+
 var ContinueButton = function(){
 	var me = UiObject();
 
 	me.w = BUTTON_W;
 	me.h = BUTTON_H;
 	me.x = BUTTON_X;
-	me.y = BUTTON_Y2;
+	me.y = BUTTON_Y3;
 	
 
 	me.onDraw = function(ctx){
@@ -358,7 +386,7 @@ var ChangeLevelButton = function(){
 	me.w = BUTTON_W;
 	me.h = BUTTON_H;
 	me.x = BUTTON_X;
-	me.y = BUTTON_Y1;
+	me.y = BUTTON_Y2;
 	
 
 	me.onDraw = function(ctx){
