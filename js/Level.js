@@ -256,7 +256,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 
 	me.onDraw = function(ctx){
 		//background
-		ctx.fillStyle = "#003";
+		ctx.fillStyle = "#030";
 		ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		//best path
