@@ -20,8 +20,8 @@ var Graphics = function(){
 	
 	//Contexts
 	me.blackBackgroundCtx;
-	me.mapCtx;
-	me.menuCtx;
+	me.blurCtx;
+	me.mainCtx;
 	
 	me.frameCount = 0;
 
@@ -31,8 +31,8 @@ var Graphics = function(){
 		
 		//Set up Contexts
 		me.blackBackgroundCtx	= me.newCanvas(1, null,  "black").getContext("2d");
-		me.mapCtx				= me.newCanvas(1, null,  null).getContext("2d");
-		me.menuCtx				= me.newCanvas(2, null,  null).getContext("2d");
+		me.blurCtx				= me.newCanvas(1, null,  null).getContext("2d");
+		me.mainCtx				= me.newCanvas(2, null,  null).getContext("2d");
 
 		//Prevent default right click menu so we can use right clicks for input
 		document.addEventListener("contextmenu", function(e){ e.preventDefault(); }, false);
@@ -75,16 +75,16 @@ var Graphics = function(){
 		me.frameCount++;
 		
 		//DRAW FRAME (redraw constantly for stuff like UI responsiveness)
-		me.clearContext(me.mapCtx);
-		me.clearContext(me.menuCtx);
-		var ctx = me.menuCtx;
+		me.clearContext(me.blurCtx);
+		me.clearContext(me.mainCtx);
+		var ctx = me.mainCtx;
 
 		//prepare
 		me.preDraw();
 
 		//blur
 		if(activeElement !== currentLevel){
-			currentLevel.draw(me.mapCtx);
+			currentLevel.draw(me.blurCtx);
 		}
 
 		//main draw
