@@ -145,11 +145,10 @@ function endRound(){
 
 	//score
 	score = getRoundScore();
+
+	//XP
 	if(currentLevel.nextLevel){
-		var n = currentLevel.nextLevel;
-		n.lastXp = n.currentXp;
-		n.currentXp += score;
-		if(n.currentXp > n.xpRequirement) n.currentXp = n.xpRequirement;
+		currentLevel.nextLevel.addXp(score);
 	}
 
 	//perfect chain

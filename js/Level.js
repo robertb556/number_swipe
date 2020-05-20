@@ -308,6 +308,17 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		}
 	};
 
+	me.wasJustUnlocked = function(){
+		if(me.lastXp < me.xpRequirement && me.currentXp >= me.xpRequirement) return true;
+		else return false;
+	};
+
+	me.addXp = function(xp){
+		me.lastXp = me.currentXp;
+		me.currentXp += xp;
+		if(me.currentXp > me.xpRequirement) me.currentXp = me.xpRequirement;
+	};
+
 	me.isLocked = function(){
 		if(me.currentXp < me.xpRequirement) return true;
 		else return false;

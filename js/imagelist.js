@@ -22,21 +22,23 @@ addImageFile("n7",		"n7.png");
 addImageFile("n8",		"n8.png");
 addImageFile("n9",		"n9.png");
 
-addImageFile("submit",		"submit.png");
-addImageFile("great",		"great.png");
+addImageFile("arrow",			"arrow.png");
+addImageFile("arrowb",			"arrowb.png");
+addImageFile("submit",			"submit.png");
+addImageFile("great",			"great.png");
 addImageFile("continue",		"continue.png");
 addImageFile("continuedown",	"continuedown.png");
 addImageFile("changelevel",		"changelevel.png");
-addImageFile("score",		"score.png");
+addImageFile("score",			"score.png");
 addImageFile("viewpath",		"viewpath.png");
 addImageFile("nextlevel",		"nextlevel.png");
 
-addImageFile("bar",		"bar.png");
+addImageFile("bar",			"bar.png");
 addImageFile("barcap",		"barcap.png");
 addImageFile("barcap2",		"barcap2.png");
 addImageFile("bgbar",		"bgbar.png");
-addImageFile("bgbarcap",		"bgbarcap.png");
-addImageFile("bgbarcap2",		"bgbarcap2.png");
+addImageFile("bgbarcap",	"bgbarcap.png");
+addImageFile("bgbarcap2",	"bgbarcap2.png");
 
 addImageFile("cube",		"cube.png");
 addImageFile("sstar",		"sstar.png");

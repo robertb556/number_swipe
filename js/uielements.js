@@ -87,7 +87,7 @@ var ScoreScreen = function(){
 	me.onDraw = function(ctx){
 		me.frameCount++;
 
-		
+		//variables
 		var puzzleDifficulty = getPuzzleDifficulty();
 		var pathLength = path.length;
 		var maxLength = currentMax;
@@ -112,6 +112,10 @@ var ScoreScreen = function(){
 		var x2 = x1-120;
 		var x3 = x1+125;
 
+
+		//offset
+		ctx.save();
+		ctx.translate(0,70);
 
 		//animation background
 		var ds = (me.frameCount);
@@ -138,9 +142,9 @@ var ScoreScreen = function(){
 		//perfect chain
 		if(perfectChain > 0){
 			ctx.textAlign = "left";
-			ctx.fillText("Perfect chain:", x2, 105);
+			ctx.fillText("Perfect chain:", x2, 110);
 			ctx.textAlign = "right";
-			ctx.fillText(""+perfectChain, x3, 105);
+			ctx.fillText(""+perfectChain, x3, 110);
 		}
 
 
@@ -148,22 +152,16 @@ var ScoreScreen = function(){
 		if(xpRequired > 0){
 			//next level: 100/200
 			ctx.textAlign = "center";
-			ctx.fillText("Next Level:  "+currentXp+"/"+xpRequired, x1, 140);
+			ctx.fillText("Next Level:  "+currentXp+"/"+xpRequired, x1, 160);
 
 
 			//progress bar
 			var x4 = 40;
-			var y4 = 150;
+			var y4 = 170;
 			var wm = 300;
 			var w = Math.floor(wm * percentProgress);
 			var h = 32;
-			//ctx.fillStyle = "#333";
-			//ctx.fillRect(x4, y4, wm, h);
-			//ctx.fillStyle = "#ececec";
-			//ctx.strokeStyle = "#ececec";
-			//ctx.lineWidth = 2;
-			//ctx.strokeRect(x4, y4, wm, h);
-			//ctx.fillRect(x4, y4, w, h);
+
 			ctx.drawImage(IMG["bgbar"], x4, y4, wm, h);
 			ctx.drawImage(IMG["bgbarcap2"], x4-32, y4);
 			ctx.drawImage(IMG["bgbarcap"], x4+wm, y4);
@@ -172,12 +170,6 @@ var ScoreScreen = function(){
 			ctx.drawImage(IMG["barcap2"], x4-32, y4);
 			ctx.drawImage(IMG["barcap"], x4+w, y4);
 
-
-			//Level unlocked
-			if(currentLevel.nextLevel.lastXp < currentLevel.nextLevel.xpRequirement && currentLevel.nextLevel.currentXp >= currentLevel.nextLevel.xpRequirement){
-				ctx.textAlign = "left";
-				ctx.fillText("Level unlocked!", x2, 210+(5*Math.sin(me.frameCount/15)));
-			}
 		}
 		
 
@@ -201,8 +193,6 @@ var ScoreScreen = function(){
 			ctx.fillText(""+percentComplete+"%", x3+24, 250);
 		}
 
-		
-
 
 		//puzzle difficulty
 		ctx.textAlign = "left";
@@ -217,23 +207,15 @@ var ScoreScreen = function(){
 		ctx.fillText(""+tempScore, x3, 330);
 
 
+		//Level unlocked
+		if(currentLevel.nextLevel && currentLevel.nextLevel.wasJustUnlocked()){
+			ctx.textAlign = "center";
+			ctx.fillText(" Level unlocked!", x1, 440+(5*Math.sin(me.frameCount/15)));
+		}
 
 
-		/*
-		var text = "Score is blah";
-		ctx.font = "48px Arial";
-		ctx.textAlign = "center";
-		ctx.fillStyle = "black";
-		var x = Math.floor(SCREEN_WIDTH/2);
-		var y = 90;
-		ctx.fillText(text, x+1, y+1);
-		ctx.fillText(text, x+1, y-1);
-		ctx.fillText(text, x-1, y+1);
-		ctx.fillText(text, x-1, y-1);
-
-		ctx.fillStyle = "white";
-		ctx.fillText(text, x, y);
-		*/
+		//restore
+		ctx.restore();
 	};
 
 	return me;
@@ -341,7 +323,7 @@ var NextLevelButton = function(){
 	me.w = BUTTON_W;
 	me.h = BUTTON_H;
 	me.x = BUTTON_X;
-	me.y = BUTTON_Y1;
+	me.y = BUTTON_Y3;
 	
 
 	me.onDraw = function(ctx){
@@ -356,7 +338,7 @@ var NextLevelButton = function(){
 	};
 
 	me.isEnabled = function(){
-		if(currentLevel.nextLevel && !currentLevel.nextLevel.isLocked()) return true;
+		if(currentLevel.nextLevel && currentLevel.nextLevel.wasJustUnlocked()) return true;
 		else return false;
 	};
 
@@ -373,13 +355,19 @@ var ContinueButton = function(){
 	
 
 	me.onDraw = function(ctx){
-		ctx.drawImage(IMG['continue'], me.x, me.y);
-
-		if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		if(me.isEnabled()){
+			ctx.drawImage(IMG['continue'], me.x, me.y);
+			if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		}
 	};
 
 	me.onMouseUp = function(){
-		nextRound(currentLevel);
+		if(me.isEnabled()) nextRound(currentLevel);
+	};
+
+	me.isEnabled = function(){
+		if(!currentLevel.nextLevel || !currentLevel.nextLevel.wasJustUnlocked()) return true;
+		else return false;
 	};
 
 	return me;
@@ -389,16 +377,16 @@ var ContinueButton = function(){
 var ChangeLevelButton = function(){
 	var me = UiObject();
 
-	me.w = BUTTON_W;
-	me.h = BUTTON_H;
-	me.x = BUTTON_X;
-	me.y = BUTTON_Y2;
+	me.w = 50;
+	me.h = 50;
+	me.x = 10;
+	me.y = 20;
 	
 
 	me.onDraw = function(ctx){
-		ctx.drawImage(IMG['changelevel'], me.x, me.y);
+		ctx.drawImage(IMG['arrow'], me.x, me.y);
 
-		if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['arrowb'], me.x, me.y);
 	};
 
 	me.onMouseUp = function(){
