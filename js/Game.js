@@ -4,6 +4,10 @@
 //##############################################
 //-----------------CONSTANTS--------------------
 //##############################################
+//SETTINGS
+var SHOW_TUTORIAL = false;
+
+
 //UI
 var SCREEN_WIDTH = 378; //960;
 var SCREEN_HEIGHT = 612;
@@ -65,8 +69,11 @@ window.onload = function(){
 function startGame(){
 	score = 0;
 
+	if(SHOW_TUTORIAL) nextRound(Tutorial());
+	else nextRound(levels[0]);
+
 	//setActiveElement(levelSelectScreen);
-	nextRound(Tutorial());
+	//nextRound(Tutorial());
 	//nextRound(levels[0]);
 	tickStep();
 }
