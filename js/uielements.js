@@ -116,8 +116,8 @@ var ScoreScreen = function(){
 		//animation background
 		var ds = (me.frameCount);
 		if(ds > 15) ds = 15;
-		graphics.mapCtx.canvas.style.filter = "blur("+1*ds+"px)";
-		graphics.mapCtx.canvas.style.opacity = ""+1-(ds/30);
+		graphics.blurCtx.canvas.style.filter = "blur("+1*ds+"px)";
+		graphics.blurCtx.canvas.style.opacity = ""+1-(ds/30);
 		//for(var i=0; i<ds; i++) ctx.drawImage(IMG['dimscreen'], me.x-50, me.y-50);
 
 		
@@ -316,13 +316,19 @@ var SubmitButton = function(){
 	
 
 	me.onDraw = function(ctx){
-		ctx.drawImage(IMG['submit'], me.x, me.y);
-
-		if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		if(me.isEnabled()){
+			ctx.drawImage(IMG['submit'], me.x, me.y);
+			if(mouse.isDown && me.contains(mouse.x, mouse.y)) ctx.drawImage(IMG['continuedown'], me.x, me.y);
+		}
 	};
 
 	me.onMouseUp = function(){
-		endRound();
+		if(me.isEnabled()) endRound();
+	};
+
+	me.isEnabled = function(){
+		if(activeElement === me.parent) return true;
+		else return false;
 	};
 
 	return me;
@@ -436,8 +442,8 @@ var ViewScoreButton = function(){
 	
 
 	me.onDraw = function(ctx){
-		graphics.mapCtx.canvas.style.filter = "blur(0px)";
-		graphics.mapCtx.canvas.style.opacity = "1.0";
+		graphics.blurCtx.canvas.style.filter = "blur(0px)";
+		graphics.blurCtx.canvas.style.opacity = "1.0";
 
 		ctx.drawImage(IMG['score'], me.x, me.y);
 
