@@ -12,9 +12,11 @@ var UiObject = function(){
 	me.w = 0;
 	me.h = 0;
 	me.children = [];
+	me.parent;
 
 
 	me.addChild = function(obj){
+		obj.parent = me;
 		me.children.push(obj);
 	};
 
