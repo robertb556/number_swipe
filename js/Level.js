@@ -14,6 +14,10 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 	me.yOffset = MAP_Y_OFFSET;
 	me.gWidth = 5;
 	me.gHeight = 7;
+
+	me.lineWidth = 3;
+	me.lineGrow = true;
+	me.lineColor = ["#AAA","#BBB","#CCC","#DDD","#EEE","#FFF",];
 	
 	me.index = index;
 	me.duration = duration;
@@ -284,8 +288,17 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 
 		//path
 		if(path.length > 0){
-			ctx.lineWidth = 5;
-			ctx.strokeStyle = "white";
+			if(graphics.frameCount % 5 === 0){
+				if(me.lineGrow) me.lineWidth++;
+				else me.lineWidth--;
+				if(me.lineWidth === 8) me.lineGrow = false;
+				if(me.lineWidth === 3) me.lineGrow = true;
+			}
+			
+			ctx.lineWidth = me.lineWidth;
+			
+			//ctx.strokeStyle = "white";
+			ctx.strokeStyle = me.lineColor[me.lineWidth-3];
 			ctx.beginPath();
 			ctx.save();
 			ctx.translate(20,20);
