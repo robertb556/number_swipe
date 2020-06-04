@@ -90,6 +90,9 @@ var Graphics = function(){
 		//main draw
 		if(activeElement) activeElement.draw(ctx);
 
+		//animations
+		animations.draw(ctx);
+
 		//restore
 		me.postDraw();
 	};

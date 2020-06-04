@@ -39,22 +39,16 @@ var Node = function(gx, gy, x, y, index){
 
 	me.tryAddPath = function(){
 		var last = path[path.length-1];
-		if(me !== last && last.hasNeighbor(me) && me.value >= last.value && !me.isAlreadyInPath()){
-			path.push(me);
+		if(me !== last && last.hasNeighbor(me) && me.value >= last.value && !me.isInPath()){
+			pathAdd(me);
 		}
 	};
 
-	me.isAlreadyInPath = function(){
-		for(var i=0; i<path.length; i++){
-			if(path[i] === me) return true;
-		}
-		return false;
-	};
 
 	me.hasAnyPathOptions = function(){
 		for(var i=0; i<me.neighbors.length; i++){
 			var n = me.neighbors[i];
-			if(n && !n.isAlreadyInPath() && n.value >= me.value) return true;
+			if(n && !n.isInPath() && n.value >= me.value) return true;
 		}
 		return false;
 	}
@@ -85,7 +79,7 @@ var Node = function(gx, gy, x, y, index){
 		if(me.isInPath() && currentLevel.hoverNode === me) img = IMG['nph'];
 
 		ctx.drawImage(img, x, y);
-		ctx.drawImage(IMG['n'+me.value], x, y);
+		if(!me.isInPath()) ctx.drawImage(IMG['n'+me.value], x, y);
 	};
 
 	me.getBestPath = function(path){

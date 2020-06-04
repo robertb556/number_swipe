@@ -203,7 +203,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		if(me.lastNode === null && me.hoverNode !== null){
 			//start new path
 			if(path.length === 0){
-				path.push(me.hoverNode);
+				pathAdd(me.hoverNode);
 			}
 
 			//or remove last node
@@ -231,7 +231,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		if(me.lastNode === null && me.hoverNode !== null){
 			//start new path
 			if(path.length === 0){
-				path.push(me.hoverNode);
+				pathAdd(me.hoverNode);
 			}
 
 			//or add additional node

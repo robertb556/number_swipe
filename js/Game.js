@@ -29,6 +29,7 @@ var BUTTON_Y3 = BUTTON_Y_OFFSET + 140;
 //-----------------VARS-------------------------
 //##############################################
 var graphics;
+var animations;
 var currentLevel;
 var levels;
 var scoreScreen;
@@ -51,6 +52,7 @@ var roundOver = true;
 window.onload = function(){
 	//INIT
 	graphics = Graphics();
+	animations = Animations();
 	levels = buildLevels(PUZZLE_TEXT);
 	currentLevel = levels[0];
 	mouse = Mouse();
@@ -231,6 +233,11 @@ function getPercentComplete(){
 function getTimeBonus(){
 	var modifier = currentLevel.duration/2;
 	return (modifier + getTimeRemaining()) / modifier;
+}
+
+function pathAdd(node){
+	path.push(node);
+	animations.add(SpriteAnimation(node.x, node.y, IMG["splash"], 16, 4, 30, 325, 325));
 }
 
 

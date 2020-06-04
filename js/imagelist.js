@@ -46,6 +46,8 @@ addImageFile("gstar",		"gstar.png");
 addImageFile("lock",		"lock.png");
 addImageFile("check",		"check.png");
 
+addImageFile("splash",		"a.png");
+
 function addImageFile(name, fileName){
 	IMG[name] = new Image();
 	IMG[name].src = "img/"+fileName;
