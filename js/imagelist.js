@@ -10,6 +10,7 @@ addImageFile("n",		"n.png");
 addImageFile("np",		"np.png");
 addImageFile("nh",		"nh.png");
 addImageFile("nph",		"nph.png");
+addImageFile("nd",		"nd.png");
 
 addImageFile("n0",		"n0.png");
 addImageFile("n1",		"n1.png");

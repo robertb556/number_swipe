@@ -5,7 +5,7 @@
 //-----------------CONSTANTS--------------------
 //##############################################
 //SETTINGS
-var SHOW_TUTORIAL = true;
+var SHOW_TUTORIAL = false;
 
 
 //UI

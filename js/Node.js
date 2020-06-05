@@ -73,13 +73,32 @@ var Node = function(gx, gy, x, y, index){
 		var x = me.x-5;
 		var y = me.y-5;
 
-		var img = IMG['n'];
-		if(me.isInPath()) img = IMG['np'];
-		if(currentLevel.hoverNode === me) img = IMG['nh'];
-		if(me.isInPath() && currentLevel.hoverNode === me) img = IMG['nph'];
+		if(activeElement === pathScreen){
+			if(me.isInPath()){
+				ctx.drawImage(IMG['nph'], x, y);
+			}
+			else{
+				ctx.drawImage(IMG['n'], x, y);
+			}
+			ctx.drawImage(IMG['n'+me.value], x, y);
+		}
+		else if(me.isInPath()){
+			ctx.drawImage(IMG['np'], x, y);
+		}
+		else{
+			if(!me.isTooLow()){
+				ctx.drawImage(IMG['n'], x, y);
+				ctx.drawImage(IMG['n'+me.value], x, y);
+			}
+			else{
+				ctx.drawImage(IMG['nd'], x, y);
+			}
+		}
+	};
 
-		ctx.drawImage(img, x, y);
-		if(!me.isInPath()) ctx.drawImage(IMG['n'+me.value], x, y);
+	me.isTooLow = function(){
+		if(path.length > 0 && path[path.length-1].value > me.value) return true;
+		else return false;
 	};
 
 	me.getBestPath = function(path){

@@ -288,7 +288,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 
 		//path
 		if(path.length > 0){
-			if(graphics.frameCount % 5 === 0){
+			if(graphics.frameCount % 8 === 0){
 				if(me.lineGrow) me.lineWidth++;
 				else me.lineWidth--;
 				if(me.lineWidth === 8) me.lineGrow = false;
@@ -299,16 +299,23 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 			
 			//ctx.strokeStyle = "white";
 			ctx.strokeStyle = me.lineColor[me.lineWidth-3];
-			ctx.beginPath();
-			ctx.save();
-			ctx.translate(20,20);
-			ctx.moveTo(path[0].x, path[0].y);
-			for(var i=1; i<path.length; i++){
-				ctx.lineTo(path[i].x, path[i].y);
+			
+			var dx = 20; 
+			var dy = 20;
+			for(var i=0; i<path.length-1; i++){
+				ctx.beginPath();
+				ctx.moveTo(dx+path[i].x, dy+path[i].y);
+				ctx.lineTo(dx+path[i+1].x, dy+path[i+1].y);
+				ctx.stroke();
 			}
-			ctx.restore();
-			if(mouse.isDown && mouse.y < 470) ctx.lineTo(mouse.x, mouse.y);
-			ctx.stroke();
+
+			if(mouse.isDown && mouse.y < 470 && path.length > 0){
+				ctx.beginPath();
+				ctx.moveTo(dx+path[path.length-1].x, dy+path[path.length-1].y);
+				ctx.lineTo(mouse.x, mouse.y);
+				ctx.stroke();
+			}
+			
 		}
 
 		//timer
