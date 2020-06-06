@@ -87,7 +87,7 @@ var Node = function(gx, gy, x, y, index){
 		}
 		else{
 			if(!me.isTooLow()){
-				ctx.drawImage(IMG['n'], x, y);
+				ctx.drawImage(IMG['nn'], x, y);
 				ctx.drawImage(IMG['n'+me.value], x, y);
 			}
 			else{

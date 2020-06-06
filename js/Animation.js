@@ -69,7 +69,7 @@ var Animation = function(){
 };
 
 
-var SpriteAnimation = function(x, y, spriteSheet, frames, columns, frameDuration, frameWidth, frameHeight){
+var SpriteAnimation = function(x, y, spriteSheet, frames, columns, frameDuration, frameWidth, frameHeight, drawWidth, drawHeight){
 	var me = Animation();
 
 	me.x = x;
@@ -80,6 +80,8 @@ var SpriteAnimation = function(x, y, spriteSheet, frames, columns, frameDuration
 	me.frameDuration = frameDuration;
 	me.frameWidth = frameWidth;
 	me.frameHeight = frameHeight;
+	me.drawWidth = drawWidth;
+	me.drawHeight = drawHeight;
 	me.maxAge = me.maxFrame * me.frameDuration;
 
 	me.onDraw = function(ctx){
@@ -93,7 +95,7 @@ var SpriteAnimation = function(x, y, spriteSheet, frames, columns, frameDuration
 		var x = me.x;
 		var y = me.y;
 
-		ctx.drawImage(me.spriteSheet, sx, sy, sw, sh, x-55, y-55, 150, 150);
+		ctx.drawImage(me.spriteSheet, sx, sy, sw, sh, x, y, drawWidth, drawHeight);
 	};
 
 	return me;

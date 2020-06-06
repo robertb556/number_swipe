@@ -237,7 +237,8 @@ function getTimeBonus(){
 
 function pathAdd(node){
 	path.push(node);
-	animations.add(SpriteAnimation(node.x, node.y, IMG["splash"], 16, 4, 30, 325, 325));
+	animations.add(SpriteAnimation(node.x-5, node.y-5, IMG["bubble"], 6, 6, 60, 96, 96, 48, 48));
+	//animations.add(SpriteAnimation(node.x-55, node.y-55, IMG["splash"], 16, 4, 30, 325, 325, 150, 150));
 }
 
 

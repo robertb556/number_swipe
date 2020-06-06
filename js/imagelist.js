@@ -6,6 +6,7 @@
 //##############################################
 var IMG = {};
 
+addImageFile("nn",		"nn.png");
 addImageFile("n",		"n.png");
 addImageFile("np",		"np.png");
 addImageFile("nh",		"nh.png");
@@ -48,6 +49,7 @@ addImageFile("lock",		"lock.png");
 addImageFile("check",		"check.png");
 
 addImageFile("splash",		"a.png");
+addImageFile("bubble",		"bubble.png");
 
 function addImageFile(name, fileName){
 	IMG[name] = new Image();
