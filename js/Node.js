@@ -19,6 +19,8 @@ var Node = function(gx, gy, x, y, index){
 
 	me.value = -1;
 
+	me.animationFinished = false;
+
 	me.contains = function(x,y){
 		if(!me.isActive()) return false;
 
@@ -39,22 +41,16 @@ var Node = function(gx, gy, x, y, index){
 
 	me.tryAddPath = function(){
 		var last = path[path.length-1];
-		if(me !== last && last.hasNeighbor(me) && me.value >= last.value && !me.isAlreadyInPath()){
-			path.push(me);
+		if(me !== last && last.hasNeighbor(me) && me.value >= last.value && !me.isInPath()){
+			pathAdd(me);
 		}
 	};
 
-	me.isAlreadyInPath = function(){
-		for(var i=0; i<path.length; i++){
-			if(path[i] === me) return true;
-		}
-		return false;
-	};
 
 	me.hasAnyPathOptions = function(){
 		for(var i=0; i<me.neighbors.length; i++){
 			var n = me.neighbors[i];
-			if(n && !n.isAlreadyInPath() && n.value >= me.value) return true;
+			if(n && !n.isInPath() && n.value >= me.value) return true;
 		}
 		return false;
 	}
@@ -79,13 +75,34 @@ var Node = function(gx, gy, x, y, index){
 		var x = me.x-5;
 		var y = me.y-5;
 
-		var img = IMG['n'];
-		if(me.isInPath()) img = IMG['np'];
-		if(currentLevel.hoverNode === me) img = IMG['nh'];
-		if(me.isInPath() && currentLevel.hoverNode === me) img = IMG['nph'];
+		if(activeElement === pathScreen){
+			if(me.isInPath()){
+				ctx.drawImage(IMG['nph'], x, y);
+			}
+			else{
+				ctx.drawImage(IMG['n'], x, y);
+			}
+			ctx.drawImage(IMG['n'+me.value], x, y);
+		}
+		else if(me.isInPath()){
+			ctx.drawImage(IMG['lilypad'], x, y);
+			if(me.animationFinished) ctx.drawImage(IMG['f'], x-2, y-7);
+			//else ctx.drawImage(IMG['np'], x, y);
+		}
+		else{
+			if(!me.isTooLow()){
+				ctx.drawImage(IMG['lilypad'], x, y);
+				ctx.drawImage(IMG['n'+me.value], x, y);
+			}
+			else{
+				ctx.drawImage(IMG['lilypad2'], x, y);
+			}
+		}
+	};
 
-		ctx.drawImage(img, x, y);
-		ctx.drawImage(IMG['n'+me.value], x, y);
+	me.isTooLow = function(){
+		if(path.length > 0 && path[path.length-1].value > me.value) return true;
+		else return false;
 	};
 
 	me.getBestPath = function(path){

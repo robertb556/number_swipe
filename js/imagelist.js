@@ -6,10 +6,12 @@
 //##############################################
 var IMG = {};
 
+addImageFile("nn",		"nn.png");
 addImageFile("n",		"n.png");
 addImageFile("np",		"np.png");
 addImageFile("nh",		"nh.png");
 addImageFile("nph",		"nph.png");
+addImageFile("nd",		"nd.png");
 
 addImageFile("n0",		"n0.png");
 addImageFile("n1",		"n1.png");
@@ -45,6 +47,17 @@ addImageFile("sstar",		"sstar.png");
 addImageFile("gstar",		"gstar.png");
 addImageFile("lock",		"lock.png");
 addImageFile("check",		"check.png");
+
+addImageFile("splash",		"a.png");
+addImageFile("bubble",		"bubble.png");
+addImageFile("ripples",		"ripples.png");
+addImageFile("flower",		"flower.png");
+addImageFile("f",			"f.png");
+addImageFile("lilypad",		"lilypad.png");
+addImageFile("lilypad2",		"lilypad2.png");
+addImageFile("ripple",		"ripple2.png");
+
+addImageFile("bg",		"bg3.png");
 
 function addImageFile(name, fileName){
 	IMG[name] = new Image();

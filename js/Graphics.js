@@ -82,13 +82,22 @@ var Graphics = function(){
 		//prepare
 		me.preDraw();
 
+		//bg
+		ctx.drawImage(IMG["bg"], 0, 0);
+
 		//blur
 		if(activeElement !== currentLevel){
 			currentLevel.draw(me.blurCtx);
 		}
 
+		//animations
+		animations.draw(ctx, false);
+
 		//main draw
 		if(activeElement) activeElement.draw(ctx);
+
+		//animations
+		animations.draw(ctx, true);
 
 		//restore
 		me.postDraw();

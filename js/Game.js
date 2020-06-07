@@ -5,7 +5,7 @@
 //-----------------CONSTANTS--------------------
 //##############################################
 //SETTINGS
-var SHOW_TUTORIAL = true;
+var SHOW_TUTORIAL = false;
 
 
 //UI
@@ -29,6 +29,7 @@ var BUTTON_Y3 = BUTTON_Y_OFFSET + 140;
 //-----------------VARS-------------------------
 //##############################################
 var graphics;
+var animations;
 var currentLevel;
 var levels;
 var scoreScreen;
@@ -51,6 +52,7 @@ var roundOver = true;
 window.onload = function(){
 	//INIT
 	graphics = Graphics();
+	animations = Animations();
 	levels = buildLevels(PUZZLE_TEXT);
 	currentLevel = levels[0];
 	mouse = Mouse();
@@ -231,6 +233,22 @@ function getPercentComplete(){
 function getTimeBonus(){
 	var modifier = currentLevel.duration/2;
 	return (modifier + getTimeRemaining()) / modifier;
+}
+
+function pathAdd(node){
+	path.push(node);
+	node.animationFinished = false;
+	RippleAnimation(node.x, node.y);
+	//var a = animations.add(SpriteAnimation(node.x-36, node.y-9, IMG["ripples"], 9, 9, 150, 216, 128, 108, 64));
+	//a.drawTop = false;
+	
+	var b = SpriteAnimation(node.x-7, node.y-12, IMG["flower"], 18, 18, 90, 96, 96, 48, 48);
+	b.onFinish = function(){
+		node.animationFinished = true;
+		console.log("finished bloom");
+	};
+	//animations.add(SpriteAnimation(node.x-5, node.y-5, IMG["bubble"], 6, 6, 60, 96, 96, 48, 48));
+	//animations.add(SpriteAnimation(node.x-55, node.y-55, IMG["splash"], 16, 4, 30, 325, 325, 150, 150));
 }
 
 

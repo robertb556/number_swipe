@@ -14,6 +14,10 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 	me.yOffset = MAP_Y_OFFSET;
 	me.gWidth = 5;
 	me.gHeight = 7;
+
+	me.lineWidth = 3;
+	me.lineGrow = true;
+	me.lineColor = ["#AAA","#BBB","#CCC","#DDD","#EEE","#FFF",];
 	
 	me.index = index;
 	me.duration = duration;
@@ -203,7 +207,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		if(me.lastNode === null && me.hoverNode !== null){
 			//start new path
 			if(path.length === 0){
-				path.push(me.hoverNode);
+				pathAdd(me.hoverNode);
 			}
 
 			//or remove last node
@@ -231,7 +235,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		if(me.lastNode === null && me.hoverNode !== null){
 			//start new path
 			if(path.length === 0){
-				path.push(me.hoverNode);
+				pathAdd(me.hoverNode);
 			}
 
 			//or add additional node
@@ -284,18 +288,37 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 
 		//path
 		if(path.length > 0){
-			ctx.lineWidth = 5;
-			ctx.strokeStyle = "white";
-			ctx.beginPath();
-			ctx.save();
-			ctx.translate(20,20);
-			ctx.moveTo(path[0].x, path[0].y);
-			for(var i=1; i<path.length; i++){
-				ctx.lineTo(path[i].x, path[i].y);
+			/*
+			if(graphics.frameCount % 8 === 0){
+				if(me.lineGrow) me.lineWidth++;
+				else me.lineWidth--;
+				if(me.lineWidth === 8) me.lineGrow = false;
+				if(me.lineWidth === 3) me.lineGrow = true;
 			}
-			ctx.restore();
-			if(mouse.isDown && mouse.y < 470) ctx.lineTo(mouse.x, mouse.y);
-			ctx.stroke();
+			
+			ctx.lineWidth = me.lineWidth;
+			ctx.strokeStyle = me.lineColor[me.lineWidth-3];
+			*/
+
+			ctx.lineWidth = 4;
+			ctx.strokeStyle = "#ddd";
+			
+			var dx = 20; 
+			var dy = 20;
+			for(var i=0; i<path.length-1; i++){
+				ctx.beginPath();
+				ctx.moveTo(dx+path[i].x, dy+path[i].y);
+				ctx.lineTo(dx+path[i+1].x, dy+path[i+1].y);
+				ctx.stroke();
+			}
+
+			if(mouse.isDown && mouse.y < 470 && path.length > 0){
+				ctx.beginPath();
+				ctx.moveTo(dx+path[path.length-1].x, dy+path[path.length-1].y);
+				ctx.lineTo(mouse.x, mouse.y);
+				ctx.stroke();
+			}
+			
 		}
 
 		//timer
