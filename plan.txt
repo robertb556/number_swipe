@@ -1,10 +1,15 @@
-Notes:
--timer hidden, but still time bonus.
+MINIMAL:
+get from point A to B.
+no done button
+lifting up resets path (like tutorial)
+no grid, just max connect distance & minimum spacing of nodes
+version A: no text, just node color range from white to full saturation of a color.
+version B: hide node numbers, you have to figure it out.
+
 
 
 TO DO:
--show star achievments on score screen.
--tutorial could be improved. Add sage where it teaches click vs swipe, and how to undo.
+-tutorial could be improved. Add stage where it teaches click vs swipe, and how to undo.
 -throw out puzzles with solution lengths not what you want (important for difficulty).
 
 
