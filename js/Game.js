@@ -5,7 +5,7 @@
 //-----------------CONSTANTS--------------------
 //##############################################
 //SETTINGS
-var SHOW_TUTORIAL = true;
+var SHOW_TUTORIAL = false;
 
 
 //UI
@@ -23,6 +23,7 @@ var BUTTON_Y1 = BUTTON_Y_OFFSET + 0;
 var BUTTON_Y2 = BUTTON_Y_OFFSET + 70;
 var BUTTON_Y3 = BUTTON_Y_OFFSET + 140;
 
+var COLORS = ["#f5f1ed", "#f0cfb1", "#f0b57f", "#f0a056", "#f08b2e", "#f17808"];
 
 
 //##############################################

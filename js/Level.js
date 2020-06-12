@@ -124,7 +124,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 			var gy = p[1];
 			var n = me.grid[gx][gy];
 			var v = p[2];
-			if(v === 'x') v = Math.floor(Math.random()*10);
+			if(v === 'x') v = Math.floor(Math.random()*6);
 			n.value = parseInt(v);
 		}
 	};

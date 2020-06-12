@@ -79,6 +79,43 @@ var Node = function(gx, gy, x, y, index){
 		var x = me.x-5;
 		var y = me.y-5;
 
+
+		if(activeElement === pathScreen){
+			if(me.isInPath()){
+				ctx.drawImage(IMG['nph'], x, y);
+			}
+			else{
+				ctx.drawImage(IMG['n'], x, y);
+			}
+			ctx.drawImage(IMG['n'+me.value], x, y);
+		}
+		else if(me.isInPath()){
+			ctx.fillStyle = "#fff";
+			ctx.beginPath();
+			ctx.arc(x+24, y+24, 10, 0, Math.PI*2);
+			ctx.fill();
+			//ctx.drawImage(IMG['np'], x, y);
+		}
+		else{
+			if(!me.isTooLow()){
+				//ctx.fillStyle = COLORS[me.value];
+				//ctx.beginPath();
+				//ctx.arc(x+24, y+24, 21, 0, Math.PI*2);
+				//ctx.fill();
+				ctx.drawImage(IMG['n'], x, y);
+				//ctx.drawImage(IMG['n'+me.value], x, y);
+			}
+			else{
+				ctx.fillStyle = "#333";
+				ctx.beginPath();
+				ctx.arc(x+24, y+24, 21, 0, Math.PI*2);
+				ctx.fill();
+				//ctx.drawImage(IMG['nd'], x, y);
+			}
+		}
+
+
+		/*
 		var img = IMG['n'];
 		if(me.isInPath()) img = IMG['np'];
 		if(currentLevel.hoverNode === me) img = IMG['nh'];
@@ -86,6 +123,12 @@ var Node = function(gx, gy, x, y, index){
 
 		ctx.drawImage(img, x, y);
 		ctx.drawImage(IMG['n'+me.value], x, y);
+		*/
+	};
+
+	me.isTooLow = function(){
+		if(path.length > 0 && path[path.length-1].value > me.value) return true;
+		else return false;
 	};
 
 	me.getBestPath = function(path){
