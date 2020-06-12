@@ -5,7 +5,7 @@
 //-----------------CONSTANTS--------------------
 //##############################################
 //SETTINGS
-var SHOW_TUTORIAL = true;
+var SHOW_TUTORIAL = false;
 
 
 //UI
@@ -46,7 +46,8 @@ var score = 0;
 var currentMax = 0;
 var roundOver = true;
 
-
+var currentNode = null;
+var moves = 0;
 
 window.onload = function(){
 	//INIT
@@ -128,7 +129,7 @@ function buildLevels(text){
 		}
 
 		//add level
-		tempLevels.push(Level(plan, index, seconds, difficulty, xpRequirement, true));
+		tempLevels.push(Level(plan, index, seconds, difficulty, xpRequirement, false));
 	}
 
 	//set next level references

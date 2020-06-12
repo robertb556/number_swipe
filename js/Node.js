@@ -38,9 +38,9 @@ var Node = function(gx, gy, x, y, index){
 	};
 
 	me.tryAddPath = function(){
-		var last = path[path.length-1];
-		if(me !== last && last.hasNeighbor(me) && me.value >= last.value && !me.isAlreadyInPath()){
-			path.push(me);
+		if(me !== currentNode && currentNode.hasNeighbor(me) && Math.abs(me.value - currentNode.value) <= 1){
+			currentNode = me;
+			moves++;
 		}
 	};
 
@@ -79,6 +79,45 @@ var Node = function(gx, gy, x, y, index){
 		var x = me.x-5;
 		var y = me.y-5;
 
+		var doDraw = true;
+		var color = "#666";
+		var r = 20;
+		var x2 = x+24;
+		var y2 = y+24;
+
+		if(me.value === currentNode.value){
+			color = "#666";
+			r = 20;
+		}
+		else if(me.value === currentNode.value+1){
+			color = "#333";
+			r = 12;
+		}
+		else if(me.value === currentNode.value-1){
+			color = "#ccc";
+			r = 28;
+		}
+		else{
+			doDraw = false;
+		}
+
+
+
+		if(doDraw){
+			ctx.fillStyle = "#444";
+			ctx.beginPath();
+			ctx.arc(x2,y2,r,0,Math.PI*2);
+			ctx.fill();
+		}
+
+		if(me === currentNode){
+			ctx.fillStyle = "green";
+			ctx.beginPath();
+			ctx.arc(x2,y2,10,0,Math.PI*2);
+			ctx.fill();
+		}
+
+		/*
 		var img = IMG['n'];
 		if(me.isInPath()) img = IMG['np'];
 		if(currentLevel.hoverNode === me) img = IMG['nh'];
@@ -86,6 +125,10 @@ var Node = function(gx, gy, x, y, index){
 
 		ctx.drawImage(img, x, y);
 		ctx.drawImage(IMG['n'+me.value], x, y);
+		*/
+
+		
+		
 	};
 
 	me.getBestPath = function(path){

@@ -127,6 +127,10 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 			if(v === 'x') v = Math.floor(Math.random()*10);
 			n.value = parseInt(v);
 		}
+
+		for(var i=0; i<me.nodes.length; i++){
+			if(me.nodes[i].value === 0) currentNode = me.nodes[i];
+		}
 	};
 
 
@@ -200,21 +204,8 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		//console.log("-down");
 		me.setMouseNode();
 
-		if(me.lastNode === null && me.hoverNode !== null){
-			//start new path
-			if(path.length === 0){
-				path.push(me.hoverNode);
-			}
-
-			//or remove last node
-			else if(me.hoverNode === path[path.length-1]){
-				path.pop();
-			}
-
-			//or add additional node
-			else{
-				me.hoverNode.tryAddPath();
-			}
+		if(me.hoverNode !== null){
+			me.hoverNode.tryAddPath();
 		}
 	};
 
@@ -228,17 +219,6 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		//console.log("-move");
 		if(mouse.isDown) me.setMouseNode();
 
-		if(me.lastNode === null && me.hoverNode !== null){
-			//start new path
-			if(path.length === 0){
-				path.push(me.hoverNode);
-			}
-
-			//or add additional node
-			else if(me.hoverNode !== path[path.length-1]){
-				me.hoverNode.tryAddPath();
-			}
-		}
 	};
 
 	me.setMouseNode = function(){
@@ -283,6 +263,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 		}
 
 		//path
+		/*
 		if(path.length > 0){
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = "white";
@@ -297,6 +278,7 @@ var Level = function(plan, index, duration, difficulty, xpRequirement, includeSu
 			if(mouse.isDown && mouse.y < 470) ctx.lineTo(mouse.x, mouse.y);
 			ctx.stroke();
 		}
+		*/
 
 		//timer
 		if(!me.hideTimer && !roundOver){
